@@ -51,6 +51,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 TextFormField(
                     controller: _emailController,
                     focusNode: emailFocusNode,
+                    autofocus: true,
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                       hintText: "Email",

@@ -5,6 +5,7 @@ import 'package:mvvmarc/res/components/rounded_button.dart';
 import 'package:mvvmarc/utils/routes/routes_name.dart';
 import 'package:mvvmarc/utils/utils.dart';
 import 'package:mvvmarc/view_model/auth_view_model.dart';
+import 'package:mvvmarc/view_model/servies/splash_services.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -38,6 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     final authViewModel = Provider.of<AuthViewModel  >(context);
+    SplashServices splashServices = SplashServices();
     final height = MediaQuery.of(context).size.height *1 ;
     return Scaffold(
       appBar: AppBar(
@@ -53,6 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
               TextFormField(
                 controller: _emailController,
                 focusNode: emailFocusNode,
+                autofocus: true,
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
                   hintText: "Email",
@@ -106,6 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         'email': _emailController.text.toString(),
                         'password': _passwordController.text.toString(),
                       };
+
                       authViewModel.loginApi(data, context);
                       print("Api Hit");
                     }
