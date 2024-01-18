@@ -1,7 +1,11 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:mvvmarc/res/components/rounded_button.dart';
 import 'package:mvvmarc/utils/routes/routes_name.dart';
 import 'package:mvvmarc/utils/utils.dart';
+import 'package:mvvmarc/view_model/auth_view_model.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -18,9 +22,22 @@ class _LoginScreenState extends State<LoginScreen> {
   FocusNode emailFocusNode = FocusNode();
   FocusNode passwordFocusNode = FocusNode();
 
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+
+    emailFocusNode.dispose();
+    passwordFocusNode.dispose();
+
+    _obscurePassword.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final authViewModel = Provider.of<AuthViewModel  >(context);
     final height = MediaQuery.of(context).size.height *1 ;
     return Scaffold(
       appBar: AppBar(
@@ -73,6 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(height: height * 0.08,),
               RoundedButton(
                   title: "Login",
+                  loading: authViewModel.loading,
                   onPress: (){
                     if(_emailController.value.text.isEmpty) {
                       Utils.flushBarErrorMessage("Enter Email", context);
@@ -84,6 +102,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       Utils.flushBarErrorMessage("Password should be greater than 6 charcter", context);
                     }
                     else {
+                      Map data = {
+                        'email': _emailController.text.toString(),
+                        'password': _passwordController.text.toString(),
+                      };
+                      authViewModel.loginApi(data, context);
                       print("Api Hit");
                     }
               }),

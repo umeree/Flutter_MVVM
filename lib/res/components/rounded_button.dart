@@ -22,7 +22,7 @@ class RoundedButton extends StatelessWidget {
         ),
         child: Center(
             child: loading?
-            CircleAvatar(): Text(
+            CircularProgressIndicator(color: Colors.white,): Text(
               title,
               style: const TextStyle(
                   fontSize: 18,
