@@ -110,6 +110,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       print("Api Hit");
                     }
               }),
+              SizedBox(height: height * 0.02,),
+              InkWell(
+                onTap: (){
+                  Navigator.pushNamed(context, RoutesName.signUp);
+                },
+                child: Text("Dont' have Account, Sign Up"),
+              ),
             ],
           )
       )
